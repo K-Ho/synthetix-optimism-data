@@ -6,15 +6,15 @@ const { SubscriptionClient } = require('subscriptions-transport-ws');
 const pageResults = require('graph-results-pager');
 
 const graphAPIEndpoints = {
-	snx: 'https://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix',
-	depot: 'https://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix-depot',
-	exchanges: 'https://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix-exchanges',
-	rates: 'https://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix-rates',
+	snx: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix',
+	depot: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix-depot',
+	exchanges: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix-exchanges',
+	rates: 'http://localhost:8000/subgraphs/name/synthetixio-team/synthetix-rates',
 };
 
 const graphWSEndpoints = {
-	exchanges: 'wss://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix-exchanges',
-	rates: 'wss://api.thegraph.com/subgraphs/name/synthetixio-team/synthetix-rates',
+	exchanges: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-exchanges',
+	rates: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-rates',
 };
 
 const ZERO_ADDRESS = '0x' + '0'.repeat(40);
@@ -580,3 +580,25 @@ module.exports = {
 		},
 	},
 };
+
+module.exports.rate
+	.updates()
+	.then(updates => console.log('rateUpdates:', updates))
+
+// // query and log resolved results
+// module.exports.exchanges
+// 	.since({
+// 		minTimestamp: Math.floor(Date.now() / 1e3) - 3600 * 24, // one day ago
+// 	})
+// 	.then(exchanges => console.log(exchanges));
+
+// // subscribe and log streaming results
+// module.exports.exchanges.observe().subscribe({
+// 	next(val) {
+// 		console.log(val);
+// 	},
+// 	error: console.error,
+// 	complete() {
+// 		console.log('done');
+// 	},
+// });
