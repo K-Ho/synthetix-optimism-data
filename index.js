@@ -6,12 +6,13 @@ const { SubscriptionClient } = require('subscriptions-transport-ws');
 const pageResults = require('graph-results-pager');
 
 const graphAPIEndpoints = {
-	snx: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix',
-	depot: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix-depot',
-	exchanges: 'http://localhost:8545/subgraphs/name/synthetixio-team/synthetix-exchanges',
-	rates: 'http://localhost:8000/subgraphs/name/synthetixio-team/synthetix-rates',
+	snx: 'https://graph.synth.optimism.io/subgraphs/name/synthetixio-team/synthetix',
+	depot: 'https://graph.synth.optimism.io/subgraphs/name/synthetixio-team/synthetix-depot',
+	exchanges: 'https://graph.synth.optimism.io/subgraphs/name/synthetixio-team/synthetix-exchanges',
+	rates: 'https://graph.synth.optimism.io/subgraphs/name/synthetixio-team/synthetix-rates',
 };
 
+// TODO support websocket endpoints
 const graphWSEndpoints = {
 	exchanges: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-exchanges',
 	rates: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-rates',
@@ -35,7 +36,7 @@ module.exports = {
 	pageResults,
 	graphAPIEndpoints,
 	depot: {
-		userActions({ network = 'mainnet', user = undefined, max = 100 }) {
+		userActions({ network = 'ovm', user = undefined, max = 100 }) {
 			return pageResults({
 				api: graphAPIEndpoints.depot,
 				query: {
@@ -67,7 +68,7 @@ module.exports = {
 				)
 				.catch(err => console.error(err));
 		},
-		clearedDeposits({ network = 'mainnet', fromAddress = undefined, toAddress = undefined, max = 100 }) {
+		clearedDeposits({ network = 'ovm', fromAddress = undefined, toAddress = undefined, max = 100 }) {
 			return pageResults({
 				api: graphAPIEndpoints.depot,
 				query: {
@@ -163,7 +164,7 @@ module.exports = {
 		/**
 		 * Get the exchange totals for the given network.
 		 */
-		total({ network = 'mainnet' } = {}) {
+		total({ network = 'ovm' } = {}) {
 			return pageResults({
 				api: graphAPIEndpoints.exchanges,
 				query: {
@@ -188,7 +189,7 @@ module.exports = {
 		 * Get all exchanges since some timestamp in seconds or minimum block (ordered reverse chronological)
 		 */
 		since({
-			network = 'mainnet',
+			network = 'ovm',
 			max = Infinity,
 			minTimestamp = undefined,
 			maxTimestamp = undefined,
@@ -581,24 +582,15 @@ module.exports = {
 	},
 };
 
-module.exports.rate
-	.updates()
-	.then(updates => console.log('rateUpdates:', updates))
 
-// // query and log resolved results
+// UNCOMMENT TO TEST
+// module.exports.rate
+// 	.updates()
+// 	.then(updates => console.log('Rate updates:', updates))
+
 // module.exports.exchanges
 // 	.since({
 // 		minTimestamp: Math.floor(Date.now() / 1e3) - 3600 * 24, // one day ago
 // 	})
-// 	.then(exchanges => console.log(exchanges));
+// 	.then(exchanges => console.log('Exchanges:', exchanges));
 
-// // subscribe and log streaming results
-// module.exports.exchanges.observe().subscribe({
-// 	next(val) {
-// 		console.log(val);
-// 	},
-// 	error: console.error,
-// 	complete() {
-// 		console.log('done');
-// 	},
-// });
