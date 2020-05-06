@@ -594,3 +594,13 @@ module.exports = {
 // 	})
 // 	.then(exchanges => console.log('Exchanges:', exchanges));
 
+// subscribe and log streaming results - Uses Web sockets
+// module.exports.rate.observe().subscribe({
+//     next(val) {
+//             console.log(val);
+//     },
+//     error: console.error,
+//     complete() {
+//             console.log('done');
+//     },
+// });
