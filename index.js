@@ -14,8 +14,8 @@ const graphAPIEndpoints = {
 
 // TODO support websocket endpoints
 const graphWSEndpoints = {
-	exchanges: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-exchanges',
-	rates: 'wss://localhost:8545/subgraphs/name/synthetixio-team/synthetix-rates',
+	exchanges: 'http://13.59.187.92:8001/subgraphs/name/synthetixio-team/synthetix-exchanges',
+	rates: 'http://13.59.187.92:8001/subgraphs/name/synthetixio-team/synthetix-exchanges',
 };
 
 const ZERO_ADDRESS = '0x' + '0'.repeat(40);
@@ -594,3 +594,13 @@ module.exports = {
 // 	})
 // 	.then(exchanges => console.log('Exchanges:', exchanges));
 
+// subscribe and log streaming results - Uses Web sockets
+// module.exports.rate.observe().subscribe({
+// 	next(val) {
+// 		console.log(val);
+// 	},
+// 	error: console.error,
+// 	complete() {
+// 		console.log('done');
+// 	},
+// });
