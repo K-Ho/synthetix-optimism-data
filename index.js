@@ -8,8 +8,8 @@ const pageResults = require('graph-results-pager');
 const graphAPIEndpoints = {
 	snx: 'http://13.59.187.92:8000/subgraphs/name/synthetixio-team/synthetix',
 	depot: 'http://13.59.187.92:8000/subgraphs/name/synthetixio-team/synthetix-depot',
-	exchanges: 'http://13.59.187.92:8000/subgraphs/name/synthetixio-team/synthetix-exchanges',
-	rates: 'http://13.59.187.92:8000/subgraphs/name/synthetixio-team/synthetix-rates',
+	exchanges: 'http://3.22.169.249:8000/subgraphs/name/synthetixio-team/synthetix-exchanges',
+	rates: 'http://3.22.169.249:8000/subgraphs/name/synthetixio-team/synthetix-rates',
 };
 
 // TODO support websocket endpoints
